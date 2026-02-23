@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup Condition="'$(REPL_ID)' != ''">
+    <MSBuildEnableWorkloadResolver>false</MSBuildEnableWorkloadResolver>
+    <DomeReplitBuild>true</DomeReplitBuild>
+  </PropertyGroup>
+</Project>

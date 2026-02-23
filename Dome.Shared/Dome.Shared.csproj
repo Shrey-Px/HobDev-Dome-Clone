@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.SecretsManager.Caching" Version="2.0.0" />
+    <PackageReference Include="CommunityToolkit.Maui" Version="12.1.0" />
+    <PackageReference Include="CommunityToolkit.Maui.Markup" Version="6.0.1" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.0" />
+    <PackageReference Include="Syncfusion.Maui.Toolkit" Version="1.0.7" />
+    <PackageReference Include="Mopups" Version="1.3.4" />
+    <PackageReference Include="Realm" Version="12.5.0" />
+    <PackageReference Include="Twilio" Version="7.13.6" />
+    <PackageReference Include="SendGrid" Version="9.29.3" />
+    <PackageReference Include="Ory.Client" Version="1.20.11" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="appsettings.json" />
+  </ItemGroup>
+</Project>

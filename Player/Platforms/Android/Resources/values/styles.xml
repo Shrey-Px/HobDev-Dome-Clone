@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Maui.MainTheme" parent="Maui.MainTheme.Base">
+        <item name="android:colorControlHighlight">@android:color/transparent</item>
+    </style>
+    <style name="Maui.MainTheme.NoActionBar" parent="Maui.MainTheme">
+        <item name="android:colorControlHighlight">@android:color/transparent</item>
+    </style>
+</resources>

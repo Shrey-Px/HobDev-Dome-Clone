@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Admin.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:accountViews="clr-namespace:Admin.View.Account"
+      xmlns:controls="clr-namespace:Admin.CustomControls.ShellCustomControls"
+    xmlns:local="clr-namespace:Admin"
+    xmlns:views="clr-namespace:Admin.View"
+    xmlns:viewmodels="clr-namespace:Admin.ViewModels"
+    x:DataType="viewmodels:AppShellViewModel"
+    Shell.FlyoutBehavior="Locked"
+    FlyoutBackgroundColor="Black"
+    Shell.ForegroundColor="White"
+  Shell.FlyoutWidth="200">
+
+<Shell.Resources>
+    <ResourceDictionary>
+        <Style TargetType="Label"
+               Class="FlyoutItemLabelStyle">
+            <Setter Property="TextColor"
+                    Value="White" />
+            <Setter Property="HeightRequest"
+                    Value="100" />
+        </Style>
+    </ResourceDictionary>
+</Shell.Resources>
+
+<Shell.FlyoutHeader>
+        <controls:FlyoutHeader/>
+    </Shell.FlyoutHeader>
+
+    <Shell.FlyoutFooter  >
+        <controls:FlyoutFooter FooterCommand="{Binding LogoutCommand}" />
+    </Shell.FlyoutFooter>
+
+    <ShellContent
+      ContentTemplate="{DataTemplate views:VendorYardView}"
+       Title="Vendor Yard"
+      Route="VendorYard" />
+
+    <ShellContent
+    ContentTemplate="{DataTemplate views:CoachView}"
+      Title="Coach"
+    Route="Coach" />
+
+    <ShellContent
+ContentTemplate="{DataTemplate views:LearnView}"
+  Title="Learn"
+Route="Learn" />
+
+ <ShellContent
+ContentTemplate="{DataTemplate views:CouponView}"
+ Title="Coupon"
+Route="CouponView" />
+
+  <ShellContent
+    ContentTemplate="{DataTemplate accountViews:ChangePasswordView}"
+    Title="Change Password"
+    Route="ChangePasswordView"/>
+
+
+  <ShellContent Shell.FlyoutBehavior="Disabled" Shell.FlyoutItemIsVisible="False" x:Name="Login" Route="Login" Title="Login" ContentTemplate="{DataTemplate accountViews:LoginView}" />
+
+    <ShellContent Shell.FlyoutBehavior="Disabled" Shell.FlyoutItemIsVisible="False" x:Name="SyncWithServer" Route="SyncDataView" Title="SyncData" ContentTemplate="{DataTemplate views:SyncDataView}" />
+
+</Shell>

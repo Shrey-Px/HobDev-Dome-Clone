@@ -1,0 +1,58 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Install MAUI Android workload
+        run: dotnet workload install maui-android
+
+      - name: Create appsettings.json
+        run: echo '${{ secrets.APPSETTINGS_JSON }}' > Dome.Shared/appsettings.json
+
+      - name: Decode keystore
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > Player/DomeKey.keystore
+
+      - name: Restore Player (Android only)
+        run: dotnet restore Player/Player.csproj -p:TargetFrameworks=net9.0-android
+
+      - name: Re-restore Dome.Shared (fix assets for net9.0)
+        run: dotnet restore Dome.Shared/Dome.Shared.csproj
+
+      - name: Build Android APK
+        run: |
+          dotnet publish Player/Player.csproj \
+            -f net9.0-android \
+            -c Release \
+            -p:TargetFrameworks=net9.0-android \
+            --no-restore \
+            -p:AndroidKeyStore=true \
+            -p:AndroidSigningKeyStore=DomeKey.keystore \
+            -p:AndroidSigningKeyAlias=${{ secrets.KEYSTORE_ALIAS }} \
+            -p:AndroidSigningKeyPass=${{ secrets.KEYSTORE_PASSWORD }} \
+            -p:AndroidSigningStorePass=${{ secrets.KEYSTORE_PASSWORD }}
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dome-android-apk
+          path: |
+            Player/bin/Release/net9.0-android/publish/*.apk
+            Player/bin/Release/net9.0-android/publish/*.aab
+          retention-days: 30
